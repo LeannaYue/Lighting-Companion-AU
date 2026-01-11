@@ -459,7 +459,9 @@ const AIAssistant: React.FC = () => {
     setIsTyping(true);
 
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      // 安全地获取 API Key
+      const apiKey = (window as any).process?.env?.API_KEY || (process as any)?.env?.API_KEY;
+      const ai = new GoogleGenAI({ apiKey: apiKey });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: textToSubmit,
@@ -469,7 +471,7 @@ const AIAssistant: React.FC = () => {
       });
       setMessages(prev => [...prev, { role: 'assistant', content: response.text || 'Error processing request.' }]);
     } catch (err) {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Connection failed. Please check your API key.' }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Connection failed. Please check your API key settings in Vercel.' }]);
     } finally {
       setIsTyping(false);
     }
@@ -804,9 +806,9 @@ const App: React.FC = () => {
                 {activeTab}
               </h2>
               <p className="text-slate-500 text-sm max-w-2xl font-medium leading-relaxed opacity-80">
-                {activeTab === 'Dictionary' && 'Core photometric terms and professional definitions for the Australian lighting industry.'}
+                {activeTab === 'Dictionary' && 'Core photometric terms and professional definitions for the AU lighting industry.'}
                 {activeTab === 'Formulas' && 'Fast calculation engines for illuminance, efficiency, and energy compliance.'}
-                {activeTab === 'Standards' && 'Key lux levels and UGR limits extracted from the AS/NZS 1680 series.'}
+                {activeTab === 'Standards' && 'Essential lux levels and UGR limits extracted from the AS/NZS 1680 series.'}
                 {activeTab === 'Library' && 'Official documentation, reference PDFs, and essential design checklists.'}
               </p>
             </div>
@@ -819,7 +821,7 @@ const App: React.FC = () => {
         <div className="md:hidden fixed bottom-5 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-sm z-50">
           <nav className="glass-dock rounded-[2rem] flex items-center justify-between h-[72px] px-2.5 relative overflow-hidden">
             
-            {/* Sliding Pill Indicator - Cleaned up white line artifact */}
+            {/* Sliding Pill Indicator */}
             <div 
               className="absolute h-[52px] bg-brand-orange rounded-[1.4rem] shadow-xl shadow-brand-orange/30 sliding-pill"
               style={{

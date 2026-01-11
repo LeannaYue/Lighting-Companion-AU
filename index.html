@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lighting Companion AU</title>
+    <!-- 防止浏览器找不到 process 对象导致空白页 -->
+    <script>
+      window.process = { env: { API_KEY: "" } };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -63,8 +67,6 @@
                 0 10px 40px -10px rgba(0, 0, 0, 0.08),
                 inset 0 1px 0px rgba(255, 255, 255, 0.6);
         }
-        
-        /* KaTeX enforced orange glow and refined refined size */
         .katex {
           color: #FF7300 !important;
           font-size: 1.25em !important;
@@ -72,8 +74,6 @@
         .katex-display {
           margin: 0 !important;
         }
-
-        /* 3D Flip Styles */
         .flip-card {
           background-color: transparent;
           perspective: 1000px;
@@ -100,19 +100,15 @@
         .flip-card-back {
           transform: rotateY(180deg);
         }
-        
-        /* Tighter AI Core Shadow */
         .ai-core-glow {
           box-shadow: 
             0 4px 10px rgba(255, 115, 0, 0.2),
             0 0 15px rgba(255, 30, 86, 0.08),
             inset 0 1px 1px rgba(255, 255, 255, 0.3);
         }
-
         .sliding-pill {
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
         .mobile-sidebar-overlay {
             background: rgba(15, 23, 42, 0.2);
             backdrop-filter: blur(8px);
