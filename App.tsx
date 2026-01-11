@@ -459,8 +459,15 @@ const AIAssistant: React.FC = () => {
     setIsTyping(true);
 
     try {
-      // 安全地获取 API Key
-      const apiKey = (window as any).process?.env?.API_KEY || (process as any)?.env?.API_KEY;
+      // 增强型环境变量获取，兼容你在 Vercel 设置的 VITE_GEMINI_API_KEY
+      const apiKey = (window as any).process?.env?.API_KEY || 
+                     (window as any).process?.env?.VITE_GEMINI_API_KEY || 
+                     (process as any)?.env?.API_KEY;
+                     
+      if (!apiKey) {
+         throw new Error("Missing API Key");
+      }
+
       const ai = new GoogleGenAI({ apiKey: apiKey });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
@@ -471,7 +478,7 @@ const AIAssistant: React.FC = () => {
       });
       setMessages(prev => [...prev, { role: 'assistant', content: response.text || 'Error processing request.' }]);
     } catch (err) {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Connection failed. Please check your API key settings in Vercel.' }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Connection failed. Please ensure the API_KEY or VITE_GEMINI_API_KEY is correctly set in Vercel Environment Variables.' }]);
     } finally {
       setIsTyping(false);
     }
