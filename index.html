@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lighting Companion AU</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-orange': '#FF7300',
+            },
+            animation: {
+              'gradient-slow': 'gradient 8s ease infinite',
+              'float': 'float 3s ease-in-out infinite',
+              'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
+            },
+            keyframes: {
+              gradient: {
+                '0%, 100%': { 'background-position': '0% 50%' },
+                '50%': { 'background-position': '100% 50%' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-6px)' },
+              },
+              'pulse-soft': {
+                '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                '50%': { opacity: 0.8, transform: 'scale(0.98)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        :root {
+            --bg-main: #fcfdfe;
+            --surface: #ffffff;
+            --accent: #FF7300;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            scrollbar-width: thin;
+            scrollbar-color: #e2e8f0 transparent;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .glass-dock {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(30px) saturate(170%);
+            -webkit-backdrop-filter: blur(30px) saturate(170%);
+            border: 0.5px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 10px 40px -10px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0px rgba(255, 255, 255, 0.6);
+        }
+        
+        /* KaTeX enforced orange glow and refined refined size */
+        .katex {
+          color: #FF7300 !important;
+          font-size: 1.25em !important;
+        }
+        .katex-display {
+          margin: 0 !important;
+        }
+
+        /* 3D Flip Styles */
+        .flip-card {
+          background-color: transparent;
+          perspective: 1000px;
+          height: 340px; 
+        }
+        .flip-card-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          transform-style: preserve-3d;
+        }
+        .flip-card.is-flipped .flip-card-inner {
+          transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+        }
+        .flip-card-back {
+          transform: rotateY(180deg);
+        }
+        
+        /* Tighter AI Core Shadow */
+        .ai-core-glow {
+          box-shadow: 
+            0 4px 10px rgba(255, 115, 0, 0.2),
+            0 0 15px rgba(255, 30, 86, 0.08),
+            inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .sliding-pill {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .mobile-sidebar-overlay {
+            background: rgba(15, 23, 42, 0.2);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
+    "katex": "https://esm.sh/katex@0.16.9"
+  }
+}
+</script>
+</head>
+<body class="text-slate-800 antialiased">
+    <div id="root"></div>
+</body>
+</html>
